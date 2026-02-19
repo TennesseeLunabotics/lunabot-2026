@@ -1,4 +1,4 @@
-FROM osrf/ros:humble-desktop
+FROM nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ROS_WS=/opt/ros2_ws
