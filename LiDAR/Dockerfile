@@ -12,6 +12,8 @@ RUN apt update && apt install -y \
     usbutils \
     net-tools \
     vim \
+    ros-humble-pcl-conversions \
+    ros-humble-pcl-ros \
     && rm -rf /var/lib/apt/lists/*
 
 # workspace
