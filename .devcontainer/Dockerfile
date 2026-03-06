@@ -2,8 +2,8 @@ ARG ROS_DISTRO=humble
 ARG ROS_DOMAIN_ID=1
 ARG ROS_VERSION=2
 
-ARG BASE_IMAGE=nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
-
+# ARG BASE_IMAGE=nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_f247dd1051869171c3fc53bb35f6b907
+ARG BASE_IMAGE=althack/ros2:humble-dev
 
 #################################
 #   Librealsense Builder Stage  #
