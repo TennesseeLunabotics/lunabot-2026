@@ -79,71 +79,64 @@ class Teleop : public rclcpp::Node
             } else if (raw.buttons[BUTTON_X]) {
               scoop_state.data = "b";
             }
-/*
+
 	    //Test for auto dump
-	    if (raw.buttons[BUTTON_LSTICK] && raw.buttons[BUTTON_RSTICK]) {
+	    if (raw.buttons[BUTTON_DPAD_DOWN]) {
 	      cout << "Auto Dump engaged" << endl;
 	      //Setting all of the systems to forward to dump
 	      bucket_state.data = "f";
 	      scoop_state.data = "b";
 	      arm_state.data = "f";
-	     
-	      //Publishing the values
-              //scoopPub->publish(scoop_state);
-              //armPub->publish(arm_state);
-              //bucketPub->publish(bucket_state);
 	    
 	      //Sleeps for 14 seconds
 	      //If we press any of the buttons we use to activte it, we break out
 	      for (int i = 0; i < 14 * 10; i++) {	
-		this_thread::sleep_for(chrono::milliseconds(100));
-                scoopPub->publish(scoop_state);
-                armPub->publish(arm_state);
-                bucketPub->publish(bucket_state);
-		if (raw.buttons[BUTTON_LSTICK] || raw.buttons[BUTTON_RSTICK]) {
-		  breakout = true;
-		  break;
-		}
+		    this_thread::sleep_for(chrono::milliseconds(100));
+        	scoopPub->publish(scoop_state);
+            armPub->publish(arm_state);
+            bucketPub->publish(bucket_state);
+	    	if (raw.buttons[BUTTON_DPAD_DOWN]) {
+		      breakout = true;
+		      break;
+		    }
 	      }
 
+		  if (breakout == true) break;
+		  
+	      //Go backward for 1 second
+          drivetrain_states.velocity[0] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
+          drivetrain_states.velocity[1] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
+
+	      for (int i = 0; i < 10; i++) {	
+		    this_thread::sleep_for(chrono::milliseconds(100));
+            drivetrainPub->publish(drivetrain_states);
+		    if (raw.buttons[BUTTON_DPAD_DOWN]) {
+		      breakout = true;
+		      break;
+		    }
+	      }
+
+		  if (breakout == true) break;
+		  
 	      //Resetting everything
 	      scoop_state.data = "f";
 	      bucket_state.data = "b";
 	      arm_state.data = "b";
 
-	      //Publishing the values
-              //scoopPub->publish(scoop_state);
-              //armPub->publish(arm_state);
-              //bucketPub->publish(bucket_state);
-
 	      //Wait for the systems to be sort of reset
 	      for (int i = 0; i < 13 * 10; i++) {	
-		this_thread::sleep_for(chrono::milliseconds(100));
-                scoopPub->publish(scoop_state);
-                armPub->publish(arm_state);
-                bucketPub->publish(bucket_state);
-		if (raw.buttons[BUTTON_LSTICK] || raw.buttons[BUTTON_RSTICK]) {
-		  breakout = true;
-		  break;
-		}
-	      }
-
-	      //Go backward for 1 second
-              drivetrain_states.velocity[0] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
-              drivetrain_states.velocity[1] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
-              //drivetrainPub->publish(drivetrain_states);
-
-	      for (int i = 0; i < 10; i++) {	
-		this_thread::sleep_for(chrono::milliseconds(100));
-                drivetrainPub->publish(drivetrain_states);
-		if (raw.buttons[BUTTON_LSTICK] || raw.buttons[BUTTON_RSTICK]) {
-		  breakout = true;
-		  break;
-		}
-	      }
+		    this_thread::sleep_for(chrono::milliseconds(100));
+            scoopPub->publish(scoop_state);
+            armPub->publish(arm_state);
+            bucketPub->publish(bucket_state);
+		    if (raw.buttons[BUTTON_DPAD_DOWN) {
+		      breakout = true;
+		      break;
+		    }
+	     }
 	      
 	      breakout = true;
-	    }*/
+	    }
 /*
 	    //Test for auto mine
 	    if (raw.buttons[BUTTON_A] && raw.buttons[BUTTON_B]) {
