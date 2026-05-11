@@ -81,7 +81,7 @@ class Teleop : public rclcpp::Node
             }
 
 	    //Test for auto dump
-	    if (raw.axes[AXIS_DPAD_Y]) {
+	    if (raw.axes[AXIS_DPAD_Y < 0]) {
 	      cout << "Auto Dump engaged" << endl;
 	      //Setting all of the systems to forward to dump
 	      bucket_state.data = "f";
@@ -95,7 +95,7 @@ class Teleop : public rclcpp::Node
         	scoopPub->publish(scoop_state);
             armPub->publish(arm_state);
             bucketPub->publish(bucket_state);
-	    	if (raw.axes[AXIS_DPAD_Y]) {
+	    	if (raw.axes[AXIS_DPAD_Y < 0]) {
 		      breakout = true;
 		      break;
 		    }
@@ -108,7 +108,7 @@ class Teleop : public rclcpp::Node
 	      for (int i = 0; i < 10; i++) {	
 		    this_thread::sleep_for(chrono::milliseconds(100));
             drivetrainPub->publish(drivetrain_states);
-		    if (raw.axes[AXIS_DPAD_Y]) {
+		    if (raw.axes[AXIS_DPAD_Y < 0]) {
 		      breakout = true;
 		      break;
 		    }
@@ -124,7 +124,7 @@ class Teleop : public rclcpp::Node
             scoopPub->publish(scoop_state);
             armPub->publish(arm_state);
             bucketPub->publish(bucket_state);
-		    if (raw.axes[AXIS_DPAD_Y]) {
+		    if (raw.axes[AXIS_DPAD_Y < 0]) {
 		      breakout = true;
 		      break;
 		    }
