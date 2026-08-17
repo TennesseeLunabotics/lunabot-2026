@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>drivetrain</name>
-  <version>0.0.1</version>
-  <description>Take in controller values from the joy_node and control the robot's drivetrain</description>
+  <name>lunabot_constants</name>
+  <version>0.1.0</version>
+  <description>Shared C++ and Python constants for the Tennessee Lunabotics robot.</description>
   <maintainer email="ros@todo.todo">Tennessee Lunabotics</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  
-  <depend>lunabot_constants</depend>
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

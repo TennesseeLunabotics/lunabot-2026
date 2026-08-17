@@ -5,11 +5,12 @@
 #include <sensor_msgs/msg/joint_state.hpp>
 #include "string"
 #include "SparkMax.hpp"
-#include "constants.h"
+
+#include <lunabot_constants/drivetrain.hpp>
+
 using std::placeholders::_1;
 using namespace std;
-
-const int NUM_MOTOR = 2;
+using namespace lunabot_constants::drivetrain;
 
 class Drivetrain : public rclcpp::Node
 {
@@ -23,31 +24,29 @@ class Drivetrain : public rclcpp::Node
 
       motors[0].SetInverted(false);
       motors[1].SetInverted(true);
-      for(int i = 0; i < NUM_MOTOR; i++){
+      for(int i = 0; i < NUM_MOTORS; i++){
         motors[i].SetIdleMode(IdleMode::kBrake);
         motors[i].SetMotorType(MotorType::kBrushless);
       }
     }
 
   private:
-    SparkMax motors[NUM_MOTOR] = {SparkMax("can0", MOTOR_LEFT), SparkMax("can0", MOTOR_RIGHT)};    
-    std::string locations[NUM_MOTOR] = {"Left", "Right"};
+    SparkMax motors[NUM_MOTORS] = {SparkMax("can0", MOTOR_LEFT), SparkMax("can0", MOTOR_RIGHT)};    
+    std::string locations[NUM_MOTORS] = {"Left", "Right"};
     void topic_callback(const sensor_msgs::msg::JointState &drivetrain_states) {
       //set motor values
       SparkMax::Heartbeat();
-      for(int i = 0; i < NUM_MOTOR; i++){
+      for(int i = 0; i < NUM_MOTORS; i++){
         motors[i].SetVoltage(drivetrain_states.velocity[i] * MOTOR_MAX);
       }
-      //for(int i = 0; i < 4; i++){
-      //	motors[i].SetVoltage(5);
-      //}
-      //publlish sensor data
+
       sensor_msgs::msg::JointState motor_states;
       motor_states.name.resize(2);
       motor_states.velocity.resize(2);
       motor_states.position.resize(2);
       motor_states.effort.resize(2);
-      for(int i = 0; i < NUM_MOTOR; i++) {
+      
+      for(int i = 0; i < NUM_MOTORS; i++) {
         motor_states.name[i] = locations[i];
         motor_states.velocity[i] = motors[i].GetVelocity();
         motor_states.position[i] = motors[i].GetPosition();

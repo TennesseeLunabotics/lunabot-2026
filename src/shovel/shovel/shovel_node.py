@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
 import rclpy
 from rclpy.node import Node
-from . import constants, arduino_client
+from lunabot_constants import shovel as constants
+from . import arduino_client
 from std_msgs.msg import String
 
 

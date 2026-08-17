@@ -2,14 +2,17 @@
 
 #include <cstdio>
 #include <iostream>
-#include <joybuttons.h>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joy.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
-#include "constants.h"
 #include <termios.h>
 #include <unistd.h>
 
+#include <lunabot_constants/controller.hpp>
+#include <lunabot_constants/teleop.hpp>
+
+using namespace lunabot_constants::controller;
+using namespace lunabot_constants::teleop;
 using namespace std::chrono_literals;
 
 /* This example creates a subclass of Node and uses std::bind() to register a

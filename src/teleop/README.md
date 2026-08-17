@@ -1,0 +1,1 @@
+Controls the input to the robot. Accepts joy topic and publishes to other robot topics if teleop is enabled. Also controls which auto routine is currently being run. Keyboard node is not currently being used. Written by omgeometry/fishinbirb.

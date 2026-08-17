@@ -1,0 +1,1 @@
+Drivetrain node written by omgeometry and modified by fishinbirb. Controls the drivetrain through sparkCAN library written by Grayson Arendt from DuPage University. 

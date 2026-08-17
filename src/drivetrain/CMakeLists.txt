@@ -25,6 +25,7 @@ add_library(sparkcan SHARED
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(lunabot_constants REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -39,9 +40,10 @@ target_include_directories(sparkcan PUBLIC
 
 target_include_directories(drivetrain_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
-ament_target_dependencies(drivetrain_node rclcpp sensor_msgs)
+ament_target_dependencies(drivetrain_node rclcpp sensor_msgs lunabot_constants)
 # Install the library
 install(TARGETS sparkcan
     EXPORT sparkcanTargets

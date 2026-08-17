@@ -9,16 +9,19 @@
 
 #include <sensor_msgs/msg/joy.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
-
 #include <std_msgs/msg/string.hpp>
 
-#include "joybuttons.h"
-#include "constants.h"
+#include <lunabot_constants/controller.hpp>
+#include <lunabot_constants/teleop.hpp>
+
 #include "interfaces/srv/set_teleop.hpp"
 #include "Timer.hpp"
 
 using std::placeholders::_1;
 using namespace std;
+
+using namespace lunabot_constants::controller;
+using namespace lunabot_constants::teleop;
 
 class Teleop : public rclcpp::Node
 {
@@ -93,21 +96,21 @@ private:
             // Driving
             if (!raw->buttons[BUTTON_B]) {
                 drivetrain_states.velocity[0] =
-                    raw->axes[AXIS_LEFTY] * MOTOR_MAX;
+                    raw->axes[AXIS_LEFTY] * NORMAL_MODE;
 
                 drivetrain_states.velocity[1] =
-                    raw->axes[AXIS_RIGHTY] * MOTOR_MAX;
+                    raw->axes[AXIS_RIGHTY] * NORMAL_MODE;
             }
             else {
                 drivetrain_states.velocity[0] =
                     raw->axes[AXIS_LEFTY] *
                     ARHAN_MODE *
-                    MOTOR_MAX;
+                    NORMAL_MODE;
 
                 drivetrain_states.velocity[1] =
                     raw->axes[AXIS_RIGHTY] *
                     ARHAN_MODE *
-                    MOTOR_MAX;
+                    NORMAL_MODE;
             }
 
             // Scoop
@@ -186,8 +189,8 @@ private:
         }
         else if (autoTime < 15) {
 
-            drivetrain_states.velocity[0] = -MOTOR_MAX;
-            drivetrain_states.velocity[1] = -MOTOR_MAX;
+            drivetrain_states.velocity[0] = -NORMAL_MODE;
+            drivetrain_states.velocity[1] = -NORMAL_MODE;
 
             drivetrainPub->publish(drivetrain_states);
         }
@@ -203,8 +206,8 @@ private:
 
         autoTime = autoTimer.elapsedSeconds();
 
-        drivetrain_states.velocity[0] = MOTOR_MAX;
-        drivetrain_states.velocity[1] = MOTOR_MAX;
+        drivetrain_states.velocity[0] = NORMAL_MODE;
+        drivetrain_states.velocity[1] = NORMAL_MODE;
 
         if (autoTime < 1) {
 
@@ -250,10 +253,10 @@ private:
                     : -1;
 
             drivetrain_states.velocity[0] =
-                direction * MOTOR_MAX;
+                direction * NORMAL_MODE;
 
             drivetrain_states.velocity[1] =
-                direction * MOTOR_MAX;
+                direction * NORMAL_MODE;
 
             armPub->publish(arm_state);
             drivetrainPub->publish(drivetrain_states);
