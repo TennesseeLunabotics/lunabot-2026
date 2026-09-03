@@ -6,8 +6,8 @@ ARM_INCHES_PER_BIT = 6 / 4096
 #ARM_P = .2 * 255 * ARM_INCHES_PER_BIT #percent output / inch disparity
 ARM_P = 4 * 255 * ARM_INCHES_PER_BIT #percent output / inch disparity
 
-SCOOP_PWM = 13
-SCOOP_DIR = 14
+SCOOP_PWM = 13  # pulse width modulation
+SCOOP_DIR = 14  
 SCOOP_ADC = 33
 
 BUCKET_PWM = 25
